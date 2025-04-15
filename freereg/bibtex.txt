@@ -1,0 +1,5 @@
+@inproceedings{licityanchor,
+  title={CityAnchor: City-scale 3D Visual Grounding with Multi-modality LLMs},
+  author={Li, Jinpeng and Wang, Haiping and Liu, Yuan and Dou, Zhiyang and Ma, Yuexin and Yang, Sibei and Li, Yuan and Wang, Wenping and Dong, Zhen and Yang, Bisheng and others},
+  booktitle={The Thirteenth International Conference on Learning Representations}
+}
