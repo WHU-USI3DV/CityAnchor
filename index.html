@@ -1,0 +1,239 @@
+<html>
+  
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>CityAnchor: City-scale 3D Visual Grounding with Multi-modality LLMs</title>
+  <link href="./freereg/style_cityanchor.css" rel="stylesheet">
+  <script type="text/javascript" src="./freereg/jquery.mlens-1.0.min.js"></script>
+  <script type="text/javascript" src="./freereg/jquery.js"></script>
+  <style>
+    .image-container {
+      width: 460px;
+      height: 400px;
+      text-align: center;
+    }
+    .summary-img {
+      width: 100%;
+    }
+    .block-img {
+      width: 400px;
+      height: 300px;
+      object-fit: cover;
+    }
+    .divider {
+      border-right: 2px dashed #737373;
+      width: 2px;
+    }
+    .description {
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+  <style>
+    .divider_horizontal {
+      border-top: 2px dashed #737373;
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+    }
+  </style>
+  
+</head>
+
+<body>
+  <div class="content">
+    <h1><strong>CityAnchor: City-scale 3D Visual Grounding with Multi-modality LLMs</strong>
+    </h1>
+    <p id="authors">
+      <span class="conference">XXXX 2024</span> <br>
+      <span>
+        <a <sup>1,*</sup></a>
+      </span>
+      <br>
+      <span class="institution">
+        <a href="https://en.whu.edu.cn/"><sup>1</sup> Wuhan University</a> 
+        
+        <sup>*</sup>The first two authors contribute equally. &nbsp;&nbsp; 
+        <sup>&dagger;</sup>Corresponding authors. &nbsp;&nbsp; 
+    </p>
+    <font size="+2">
+      <p style="text-align: center;">
+        <a href="https://github.com/Lijp411/CityAnchor" target="_blank">[Code]</a>
+      </p>
+    </font>
+
+    <h2 style="text-align:center;">Do you want to locate an object in a large city based only on <strong>description text</strong>?</h2>
+
+    <table style="width:100%; text-align:center;">
+    <tr>
+        <td style="width:80%;">
+            <img src="./gif_cropped/Scene_1.gif" class="teaser-gif" style="width:100%;">
+        </td>
+    </tr>
+    </table>
+    
+    <h2 style="text-align:center;">Please stay tuned for our <strong>CityAnchor</strong>!</h2>
+
+    <img src="./freereg/teaser_2.png" class="teaser-gif" style="width:100%;"><br>
+    <a style="text-align:center">
+      <p>We present CityAnchor, <strong>a multi-modality LLM</strong>, that can accurately localize a target in a city-scale point cloud from some text descriptions of the target. 
+      CityAnchor achieves this by extracting features from the point cloud to grasp the intricate attributes and spatial relationships of urban objects. 
+      Then, CityAnchor comprehends the text descriptions and searches in the urban-scale point cloud for the objects corresponding to the input text descriptions.</p>
+  
+    <div id="contentWrapper">
+      <button id="prevButton" onclick="prevPage()">&#8249;</button>
+      <div id="gif-display"></div>
+      <button id="nextButton" onclick="nextPage()">&#8250;</button>
+    </div>
+    <div id="navBar">
+      <div class="navDot" id="dot0" onclick="goToPage(0)"></div>
+      <div class="navDot" id="dot1" onclick="goToPage(1)"></div>
+    </div>
+  </div>
+
+  
+  <script>
+    // pre-list all the image files under gif_cropped folder
+
+    var allFiles = [
+    { file: "14_cambridge_block_21 - Cloud.gif", description: "The<span class='red-text'> L-shaped grey roof building </span>that is on the Willow Walk and Fair Street, it has parking lots on both side." },
+    { file: "20_birmingham_block_5 - Cloud.gif", description: "This is<span class='red-text'> a brown-roofed building </span>located behind National Probation Service. There are over a dozen cars parked nearby." },
+    { file: "7_birmingham_block_5 - Cloud.gif", description: "The <span class='red-text'>orange building </span>with light green door, behind is some trees, big oval running course is hat the front." },
+    { file: "88_cambridge_block_21 - Cloud.gif", description: "A <span class='red-text'>T shaped house </span>with a white wall and a large rectangular empty compound behind it. It has a tiny tree in front of it along Maids causeway footpath." },
+    { file: "134_cambridge_block_21 - Cloud.gif", description: "The <span class='red-text'>dark car </span>that is parked between a blue and grey car on the corner of Maids Causeway and Short Street, across from Four Lamps Roundabout." },
+    { file: "199_birmingham_block_5 - Cloud.gif", description: "This is a <span class='red-text'>silver car </span>on the drive of a house on a corner of Teddington Grove. There is a second car on the drive that parked parallel to the garden wall which is 45 degrees to the house." },
+    { file: "211_birmingham_block_5 - Cloud.gif", description: "This is an <span class='red-text'>oval-shaped green field</span>. This area is next to the Perry Barr Greyhound Stadium building and is surrounded by a red oval soil field. this area is by aldridge road." },
+    { file: "285_cambridge_block_21 - Cloud.gif", description: "The <span class='red-text'>white car </span>that is 7th from the left in the 3rd row of cars in the parking lot behind the Grafton West building, when viewed aerially with the Grafton West building to the left." },
+  ];
+
+    var page = 0; // current page
+
+    function goToPage(p) {
+      page = p;
+      showPage();
+    }
+    // Create a copy of the allFiles array
+    var shuffledFiles = allFiles.slice();
+
+    // Fisher-Yates Shuffle
+    for (let i = shuffledFiles.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+
+      // swap elements i and j
+      [shuffledFiles[i], shuffledFiles[j]] = [shuffledFiles[j], shuffledFiles[i]];
+    }
+    function showPage() {
+      var selectedFiles = shuffledFiles.slice(page * 4, (page + 1) * 4);
+
+      // construct a html string to show these images
+      
+      var htmlStr = '<h2><center>Wonderful <strong>city-scale grounding!</strong></center></h2> \
+      <p> You can implement the 3D visual grounding and visualisation based on a free-form text description provided by yourself. \
+      Click left/right arrow or navigate dots to view more results. </p><table>';
+      
+      for (var i = 0; i < selectedFiles.length; i += 2) {
+        htmlStr += '<tr>';
+        for (var j = 0; j < 2; j++) {
+          if (i + j < selectedFiles.length) {
+            var fileobj = selectedFiles[i + j];
+            htmlStr += '<td><div class="image-container"><img class="block-img" src="./gif_cropped/' + fileobj.file + '"><div class="description">' + fileobj.description + '</div></div></td>';
+            if (j == 0 && i + j + 1 < selectedFiles.length) {
+              // add a divider (dash line)
+              htmlStr += '<td class="divider"></td>';
+            }
+          }
+        }
+        htmlStr += '</tr>';
+      }
+      htmlStr += '</table>';
+      // add these images to a div with id 'content'
+      document.getElementById('gif-display').innerHTML = htmlStr;
+
+      // update navigation dots
+      for (var i = 0; i < 2; i++) {
+        var dot = document.getElementById('dot' + i);
+        if (i == page) {
+          dot.classList.add('navDotSelected');
+        } else {
+          dot.classList.remove('navDotSelected');
+        }
+      }
+    }
+
+    function prevPage() {
+      if (page > 0) {
+        page--;
+        // add these images to a div with id 'con
+        showPage();
+      }
+      else if (page == 0){
+      page= allFiles.length / 4 - 1;
+        showPage();
+      }
+    }
+
+    function nextPage() {
+      if (page < allFiles.length / 4 - 1) {
+        page++;
+        showPage();
+      }
+      else if (page == allFiles.length / 4 - 1) {
+      page=0;
+        showPage();
+      }
+    }
+
+    // Show the first page when the script is first run
+    showPage();
+  </script>
+
+
+  
+  <div class="content">
+    <h2 style="text-align:center;">Abstract</h2>
+    <p> 3D visual grounding is a critical task in computer vision with transformative applications in robotics, AR/VR, and autonomous driving. 
+      Taking this to the next level by scaling 3D visualization to city-scale point clouds opens up thrilling new possibilities. 
+      We present a 3D visual grounding method called CityAnchor for localizing an urban object in a city-scale point cloud. 
+      Recent developments in multiview reconstruction enable us to reconstruct city-scale point clouds but how to conduct visual grounding on such a large-scale urban point cloud remains an open problem. 
+      Previous 3D visual grounding system mainly concentrates on localizing an object in an image or a small-scale point cloud, which is not accurate and efficient enough to scale up to a city-scale point cloud. 
+      We address this problem with a multi-modality LLM which consists of two stages, a coarse localization and a fine-grained matching. 
+      Given the text descriptions, the coarse localization stage locates possible regions on a projected 2D map 
+      of the point cloud while the fine-grained matching stage accurately determines the most matched object in these possible regions. 
+      We conduct experiments on the CityRefer dataset and a new synthetic dataset annotated by us, both of which demonstrate our method can produce accurate 3D visual grounding on a city-scale 3D point cloud.</p>
+  </div>
+
+  <div class="content">
+    <h2>City-scale Grounding Results</h2>
+
+    <img class="summary-img" src="./freereg/CityRefer_Fig_paper.png" style="width:100%;">
+    <p>
+      Qualitative grounding results on the CityRefer dataset. 
+      The projected 2D map is obtained from the city-scale point cloud by top-view projection. 
+      The candidate objects from CLM are represented by red masks. 
+      In the query text, the target object is marked in red, the landmark name is marked in blue, 
+      and the neighborhood statement is marked in green. 
+      Grounding results are shown in red boxes.
+      </p>
+    
+    <h3>
+      <center>Compare to baseline method CityRefer</center>
+    </h3>
+    <img class="summary-img" src="./freereg/Appendix_compare_baseline.png" style="width:100%;">
+    <p>
+      Qualitative comparisons of the baseline method CityRefer and the proposed framework CityAnchor. The ground truth and predicted boxes are displayed in green and red, respectively. 
+      Although both our CityAnchor and the baseline method CityRefer are capable of understanding simple textual descriptions (e.g., white house, blue car, etc.), 
+      CityAnchor demonstrates a superior ability for accurately grounding guided by complex textual descriptions 
+      (e.g., it is next to another house with a red car parked in its front yard, it is in front of a multicolored White and beige house with a brown roof, etc.). 
+    </p>
+    <br><br>
+  
+  </div>
+
+  <div class="content" id="acknowledgements">
+    <p><strong>Acknowledgements</strong>:
+      We borrow this template from <a href="https://sd-complements-dino.github.io/">A-tale-of-two-features</a>.
+    </p>
+  </div>
+</body>
+
+</html>
