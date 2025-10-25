@@ -616,12 +616,6 @@ def main(args):
             import rasterio
             with rasterio.open(raster_file) as src:
                 image = src.read()
-            
-            heat_value_cand = pred_mask_ROI[image.shape[2] - Y_pixel, X_pixel]
-            heat_value_nor_cand = pred_mask_ROI_scaled[image.shape[2] - Y_pixel, X_pixel]
-
-            if heat_value_nor_cand < threshold_ROI:
-                continue
                 
             instance_bboxes_pixel = np.copy(instance_bboxes)
             instance_bboxes_pixel[:,0]=instance_bboxes_pixel[:,0]/0.1
@@ -640,7 +634,12 @@ def main(args):
                 Y_delta=int(instance_bboxes_pixel[row,4])
                 Image_LH = max(X_delta,Y_delta)
                 local_image = extract_subimage(image,  image.shape[2] - Y_pixel, X_pixel, Image_LH, Image_LH)
-          
+
+            heat_value_cand = pred_mask_ROI[image.shape[2] - Y_pixel, X_pixel]
+            heat_value_nor_cand = pred_mask_ROI_scaled[image.shape[2] - Y_pixel, X_pixel]
+
+            if heat_value_nor_cand < threshold_ROI:
+                continue
     
             local_image = np.transpose(local_image, (1, 2, 0)) # (1676, 2190, 3)
             image_np = local_image
