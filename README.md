@@ -142,6 +142,7 @@ CUDA_VISIBLE_DEVICES=0 python Test_CityAnchor_on_cityrefer_dataset.py \
   --version="PATH_TO_CityAnchor_MODEL" \
   --version_stage_1="PATH_TO_ROI_MODEL"
 ```
+The PTH on cityanchor dataset is available at [Grounding Model](https://drive.google.com/drive/folders/1--y-Sp9hdHXg737uioHATpvqfwmAQuvh?usp=sharing) and [ROI Model](https://drive.google.com/drive/folders/1-qSVk9AZYeg1f3zcc7_Yqol9Sf2f-Rzp?usp=drive_link).
 
 ## 🤝 Acknowledgement
 CityAnchor is built upon the extremely wonderful [LISA](https://github.com/dvlab-research/LISA), [Uni3D](https://github.com/baaivision/Uni3D), [CityRefer](https://github.com/ATR-DBI/CityRefer) and [DeepSpeed](https://github.com/microsoft/DeepSpeed). 
