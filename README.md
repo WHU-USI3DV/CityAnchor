@@ -148,6 +148,7 @@ CUDA_VISIBLE_DEVICES=0 python Test_CityAnchor_on_cityanchor_dataset.py \
   --version="PATH_TO_CityAnchor_MODEL" \
   --version_stage_1="PATH_TO_ROI_MODEL"
 ```
+The PTH on cityanchor dataset is available at [Grounding Model](https://drive.google.com/drive/folders/1--y-Sp9hdHXg737uioHATpvqfwmAQuvh?usp=sharing) and [ROI Model](https://drive.google.com/drive/folders/1-qSVk9AZYeg1f3zcc7_Yqol9Sf2f-Rzp?usp=drive_link).
 
 ```
 CUDA_VISIBLE_DEVICES=0 python Test_CityAnchor_on_urbanbis_refer_dataset.py \
@@ -155,14 +156,15 @@ CUDA_VISIBLE_DEVICES=0 python Test_CityAnchor_on_urbanbis_refer_dataset.py \
   --version_stage_1="PATH_TO_ROI_MODEL"
 ```
 
+The PTH on urbanbis-refer dataset is available at [Grounding Model](https://drive.google.com/drive/folders/1--y-Sp9hdHXg737uioHATpvqfwmAQuvh?usp=sharing) and [ROI Model](https://drive.google.com/drive/folders/1-qSVk9AZYeg1f3zcc7_Yqol9Sf2f-Rzp?usp=drive_link).
+
 ```
 # Generalization test
 CUDA_VISIBLE_DEVICES=0 python Test_CityAnchor_on_whu_refer_dataset.py \
   --version="PATH_TO_CityAnchor_MODEL" \
   --version_stage_1="PATH_TO_ROI_MODEL"
 ```
-The PTH on cityanchor dataset is available at [Grounding Model](https://drive.google.com/drive/folders/1--y-Sp9hdHXg737uioHATpvqfwmAQuvh?usp=sharing) and [ROI Model](https://drive.google.com/drive/folders/1-qSVk9AZYeg1f3zcc7_Yqol9Sf2f-Rzp?usp=drive_link).
-The PTH on urbanbis-refer dataset is available at [Grounding Model](https://drive.google.com/drive/folders/1--y-Sp9hdHXg737uioHATpvqfwmAQuvh?usp=sharing) and [ROI Model](https://drive.google.com/drive/folders/1-qSVk9AZYeg1f3zcc7_Yqol9Sf2f-Rzp?usp=drive_link).
+
 The PTH (trained on urbanbis-refer dataset) on whu-refer dataset is available at [Grounding Model](https://drive.google.com/drive/folders/1--y-Sp9hdHXg737uioHATpvqfwmAQuvh?usp=sharing) and [ROI Model](https://drive.google.com/drive/folders/1-qSVk9AZYeg1f3zcc7_Yqol9Sf2f-Rzp?usp=drive_link).
 
 ## 🤝 Acknowledgement
