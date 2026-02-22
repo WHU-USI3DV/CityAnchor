@@ -23,6 +23,8 @@ from .cityrefer_dataset import ReasonSegDataset as CityReferDataset
 
 from .cityanchor_dataset import ReasonSegDataset as CityAnchorDataset
 
+from .urbanbis_refer_dataset import ReasonSegDataset as UrbanBISReferDataset
+
 from .refer import REFER
 from .refer_seg_dataset import ReferSegDataset
 from .sem_seg_dataset import SemSegDataset
@@ -380,7 +382,23 @@ class HybridDataset(torch.utils.data.Dataset):
                         explanatory,
                     )
                 )
-
+            elif dataset == "urbanbis_refer":
+                print("UrbanBIS-Refer Dataset for Model Training")
+                self.all_datasets.append(
+                    UrbanBISReferDataset(
+                        base_image_dir,
+                        tokenizer,
+                        vision_tower,
+                        samples_per_epoch,
+                        precision,
+                        image_size,
+                        num_classes_per_sample,
+                        exclude_val,
+                        reason_seg_data,
+                        explanatory,
+                    )
+                )
+  
     def __len__(self):
         return self.samples_per_epoch
 
