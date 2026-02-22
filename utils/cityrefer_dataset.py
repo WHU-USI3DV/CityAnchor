@@ -144,8 +144,8 @@ class ReasonSegDataset(torch.utils.data.Dataset):
 
         print("preparing data...")
         DC = SensatUrbanDatasetConfig() 
-        SCANREFER_TRAIN = json.load(open(os.path.join("/content/drive/MyDrive/CityAnchor_Release/meta_data/CityRefer_train_all_v1.json"))) 
-        SCANREFER_VAL = json.load(open(os.path.join("/content/drive/MyDrive/CityAnchor_Release/meta_data/CityRefer_val_NO_final.json"))) 
+        SCANREFER_TRAIN = json.load(open(os.path.join("./CityAnchor_Release_Data/meta_data/CityRefer_train_all_v1.json"))) 
+        SCANREFER_VAL = json.load(open(os.path.join("./CityAnchor_Release_Data/meta_data/CityRefer_val_NO.json"))) 
         scanrefer_train, scanrefer_val, all_scene_list= get_scanrefer(SCANREFER_TRAIN, SCANREFER_VAL, -1)
         scanrefer = {"train": scanrefer_train, "val": scanrefer_val}
         self.scanrefer=scanrefer["train"] # train or val
