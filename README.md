@@ -136,13 +136,34 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
 Friendly reminder that we typically use the final weights `xinlai/LISA-7B-v1`(Recommended) or `LLaVA-Lightning-7B-v1-1` as based model to be merged.
 
 ## ✏️ Evaluation
-You can evaluate the grounding performance on CityRefer dataset. Please put the pre-trained model in folder `/path/to/checkpoints` and eval CityAnchor using the following commands:
+You can evaluate the grounding performances using the following commands. Please put the pre-trained model in folder `/path/to/checkpoints`.
 ```
 CUDA_VISIBLE_DEVICES=0 python Test_CityAnchor_on_cityrefer_dataset.py \
   --version="PATH_TO_CityAnchor_MODEL" \
   --version_stage_1="PATH_TO_ROI_MODEL"
 ```
+
+```
+CUDA_VISIBLE_DEVICES=0 python Test_CityAnchor_on_cityanchor_dataset.py \
+  --version="PATH_TO_CityAnchor_MODEL" \
+  --version_stage_1="PATH_TO_ROI_MODEL"
+```
+
+```
+CUDA_VISIBLE_DEVICES=0 python Test_CityAnchor_on_urbanbis_refer_dataset.py \
+  --version="PATH_TO_CityAnchor_MODEL" \
+  --version_stage_1="PATH_TO_ROI_MODEL"
+```
+
+```
+# Generalization test
+CUDA_VISIBLE_DEVICES=0 python Test_CityAnchor_on_whu_refer_dataset.py \
+  --version="PATH_TO_CityAnchor_MODEL" \
+  --version_stage_1="PATH_TO_ROI_MODEL"
+```
 The PTH on cityanchor dataset is available at [Grounding Model](https://drive.google.com/drive/folders/1--y-Sp9hdHXg737uioHATpvqfwmAQuvh?usp=sharing) and [ROI Model](https://drive.google.com/drive/folders/1-qSVk9AZYeg1f3zcc7_Yqol9Sf2f-Rzp?usp=drive_link).
+The PTH on urbanbis-refer dataset is available at [Grounding Model](https://drive.google.com/drive/folders/1--y-Sp9hdHXg737uioHATpvqfwmAQuvh?usp=sharing) and [ROI Model](https://drive.google.com/drive/folders/1-qSVk9AZYeg1f3zcc7_Yqol9Sf2f-Rzp?usp=drive_link).
+The PTH (trained on urbanbis-refer dataset) on whu-refer dataset is available at [Grounding Model](https://drive.google.com/drive/folders/1--y-Sp9hdHXg737uioHATpvqfwmAQuvh?usp=sharing) and [ROI Model](https://drive.google.com/drive/folders/1-qSVk9AZYeg1f3zcc7_Yqol9Sf2f-Rzp?usp=drive_link).
 
 ## 🤝 Acknowledgement
 CityAnchor is built upon the extremely wonderful [LISA](https://github.com/dvlab-research/LISA), [Uni3D](https://github.com/baaivision/Uni3D), [CityRefer](https://github.com/ATR-DBI/CityRefer) and [DeepSpeed](https://github.com/microsoft/DeepSpeed). 
