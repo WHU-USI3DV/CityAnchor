@@ -15,13 +15,13 @@ We have provided a **Colab** template for quick and easy access to CityAnchor! P
 
 To facilitate related research, we plan to make CityAnchor open source, including but not limited to the following:
 
-- [ ] Upload our paper to arXiv and create a project page.
 - [x] Create an easy-to-use demo. **Everyone can use CityAnchor!**
 - [x] Provide the weights of **pre-trained CityAnchor model (7B)**.
 - [ ] Provide the weights of pre-trained CityAnchor model (13B).
 - [x] Release the codes inlcuding training and evaluation scripts.
 - [x] Release the training data and evaluation data.
-- [ ] Create easy-to-follow dataloader script for grounding on your own city-scale dataset (coming soon)
+- [x] Expand CityAnchor for more city-scale datasets.
+- [x] Create easy-to-follow dataloader script for grounding on your own dataset.
 - [ ] Achieve more interesting work.
 
 ## 💾 Dataset Download and Processing
@@ -112,7 +112,7 @@ You can train the CityAnchor with pre-trained LLM(VLM) backbone. It takes only a
 deepspeed --master_port=24999 Train_CityAnchor.py \
   --dataset_dir='./dataset' \
   --vision_pretrained="./sam_vit_h_4b8939.pth" \
-  --dataset="cityrefer" \
+  --dataset="cityrefer" \ # "cityanchor" or "urbanbis-refer" or "whu-refer"
   --sample_rates="1" \
   --exp_name="CityAnchor_Train_Model_on_CityRefer_Dataset_v1" \
   --epochs=6 \
