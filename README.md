@@ -56,7 +56,7 @@ cd data/sensaturban
 sh prepare_data.sh
 ```
 
-4\) Please use the pre-trained [Uni3D-L](https://github.com/baaivision/Uni3D) model to extract 3D attribute features for each candidate object (In our work, [3D object attribute features](https://drive.google.com/drive/folders/1hKpwoUvqcJ-v2mbw0aws1CAkvBBrg3xd?usp=drive_link) in ``.json`` form are provided for convenience). Please download the [top view map](https://drive.google.com/drive/folders/1oc4MF7qmb2H0jkE35uo9-vD7Dh3bWfde?usp=sharing) rasterized from RGB point cloud in ``.tif`` form. Please download the [landmark features](https://drive.google.com/drive/folders/1_cOZFti4FyZtfAyEotXu1PEOFQZEcwBs?usp=drive_link) in ``.json`` form. Finally, you should organize them in ``pointgroup_data`` folder as follows:
+4\) Please use the pre-trained [Uni3D-L](https://github.com/baaivision/Uni3D) model to extract 3D attribute features for each candidate object (In our work, [3D object attribute features](https://drive.google.com/drive/folders/1BxyUBtBwvaiDNaUs9f236MaNVae17IXs?usp=drive_link) in ``.json`` form are provided for convenience). Please download the [top view map](https://drive.google.com/drive/folders/1BxyUBtBwvaiDNaUs9f236MaNVae17IXs?usp=drive_link) rasterized from RGB point cloud in ``.tif`` form. Please download the [landmark features](https://drive.google.com/drive/folders/1BxyUBtBwvaiDNaUs9f236MaNVae17IXs?usp=drive_link) in ``.json`` form. Finally, you should organize them in ``pointgroup_data`` folder as follows:
 ```
 CityAnchor
 ├── data
